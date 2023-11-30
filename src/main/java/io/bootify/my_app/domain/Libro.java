@@ -10,6 +10,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import java.time.OffsetDateTime;
+import java.util.List;
 import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,7 +25,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Getter
 @Setter
 public class Libro {
-
     @Id
     @Column(nullable = false, updatable = false)
     @SequenceGenerator(
@@ -37,7 +37,7 @@ public class Libro {
             strategy = GenerationType.SEQUENCE,
             generator = "primary_sequence"
     )
-    private Integer idLibro;
+    private Integer id;
 
     @Column
     private String titulo;
@@ -64,5 +64,8 @@ public class Libro {
     @LastModifiedDate
     @Column(nullable = false)
     private OffsetDateTime lastUpdated;
+
+    @OneToMany(mappedBy = "libro")
+    private List<Prestamo> prestamos;
 
 }
